@@ -42,3 +42,13 @@ def total_salary(file_path: str) -> tuple:
     except Exception as e:
         print(f"An error occurred: {e}")
         return None, None
+
+
+def main():
+    total, average = total_salary("salary.csv")
+    print(f"Total salary: {total}, Average salary: {average}")
+    # Expected output: "Total salary: 10000, Average salary: 5000"
+
+
+if __name__ == '__main__':
+    main()
