@@ -16,7 +16,7 @@ def total_salary(file_path: str) -> tuple:
     file_path = Path(file_path)
 
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, 'r', encoding='utf-8') as file:
             # Open the file and read the lines
             lines = file.readlines()
         # Process the lines to list of dictionaries of name and salary
