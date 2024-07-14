@@ -23,7 +23,11 @@ def get_cats_info(file_path: str) -> List[dict]:
         # Process the lines to list of dictionaries of name, age, and color
         cats = []
         for line in lines:
-            cats.append(dict(zip(['id', 'name', 'age'], line.strip().split(','))))
+            cats.append({
+                "id": line.strip().split(',')[0],
+                "name": line.strip().split(',')[1],
+                "age": int(line.strip().split(',')[2])
+            })
         return cats
     except FileNotFoundError:
         print(f"File {file_path} not found.")

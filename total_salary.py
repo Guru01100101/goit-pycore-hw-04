@@ -22,10 +22,13 @@ def total_salary(file_path: str) -> tuple:
         # Process the lines to list of dictionaries of name and salary
         employees = []
         for line in lines:
-            employees.append(dict(zip(['name', 'salary'], line.strip().split(','))))
+            employees.append({
+                "name": line.strip().split(',')[0],
+                "salary": float(line.strip().split(',')[1])
+            })
 
         # Calculate the total salary
-        total = sum([float(employee['salary']) for employee in employees])
+        total = sum([employee['salary'] for employee in employees])
 
         # Calculate the average salary
         average_salary = total / len(employees)
