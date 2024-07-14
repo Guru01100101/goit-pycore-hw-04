@@ -47,7 +47,7 @@ def get_cats_info(file_path: str) -> List[dict]:
 
 
 def main():
-    cats_info = get_cats_info("cats.txt")
+    cats_info = get_cats_info("directory/cats.txt")
     pprint(cats_info, indent=4, sort_dicts=False)
     """
     Expected output: 
