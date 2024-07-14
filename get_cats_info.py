@@ -1,9 +1,11 @@
 from pathlib import Path
+from pprint import pprint
 from typing import List
 
 
 def get_cats_info(file_path: str) -> List[dict]:
-    """Function to get the information of all cats from a file.
+    """
+    Function to get the information of all cats from a file.
 
         __args__:
             file_path: str
@@ -13,7 +15,8 @@ def get_cats_info(file_path: str) -> List[dict]:
         __return__:
             dict
                 A dictionary containing the information of all cats.
-                The keys are 'id', 'name' and 'age' and the values are the corresponding values."""
+                The keys are 'id', 'name' and 'age' and the values are the corresponding values.
+                """
     file_path = Path(file_path)
 
     try:
@@ -41,3 +44,22 @@ def get_cats_info(file_path: str) -> List[dict]:
     except Exception as e:
         print(f"An error occurred: {e}")
         return []
+
+
+def main():
+    cats_info = get_cats_info("cats.txt")
+    pprint(cats_info, indent=4, sort_dicts=False)
+    """
+    Expected output: 
+    [
+        {"id": "60b90c1c13067a15887e1ae1", "name": "Tayson", "age": "3"},
+        {"id": "60b90c2413067a15887e1ae2", "name": "Vika", "age": "1"},
+        {"id": "60b90c2e13067a15887e1ae3", "name": "Barsik", "age": "2"},
+        {"id": "60b90c3b13067a15887e1ae4", "name": "Simon", "age": "12"},
+        {"id": "60b90c4613067a15887e1ae5", "name": "Tessi", "age": "5"},
+    ]
+    """
+
+
+if __name__ == '__main__':
+    main()
