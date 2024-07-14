@@ -37,7 +37,7 @@ def total_salary(file_path: str) -> tuple:
         print(f"File {file_path} not found.")
         return None, None
     except IsADirectoryError:
-        print(f"{file_path} is a directory.")
+        print(f"{file_path} is a data.")
         return None, None
     except IOError:
         print(f"Could not read file {file_path}.")
@@ -48,7 +48,7 @@ def total_salary(file_path: str) -> tuple:
 
 
 def main():
-    total, average = total_salary("directory/salary.txt")
+    total, average = total_salary("data/salary.txt")
     print(f"Total salary: {total}, Average salary: {average}")
     # Expected output: "Total salary: 10000, Average salary: 5000"
 

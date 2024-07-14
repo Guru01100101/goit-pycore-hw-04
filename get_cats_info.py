@@ -36,7 +36,7 @@ def get_cats_info(file_path: str) -> List[dict]:
         print(f"File {file_path} not found.")
         return []
     except IsADirectoryError:
-        print(f"{file_path} is a directory.")
+        print(f"{file_path} is a data.")
         return []
     except IOError:
         print(f"Could not read file {file_path}.")
@@ -47,7 +47,7 @@ def get_cats_info(file_path: str) -> List[dict]:
 
 
 def main():
-    cats_info = get_cats_info("directory/cats.txt")
+    cats_info = get_cats_info("data/cats.txt")
     pprint(cats_info, indent=4, sort_dicts=False)
     """
     Expected output: 
