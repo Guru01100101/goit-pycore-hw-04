@@ -48,7 +48,7 @@ def total_salary(file_path: str) -> tuple:
 
 
 def main():
-    total, average = total_salary("salary.csv")
+    total, average = total_salary("salary.txt")
     print(f"Total salary: {total}, Average salary: {average}")
     # Expected output: "Total salary: 10000, Average salary: 5000"
 
