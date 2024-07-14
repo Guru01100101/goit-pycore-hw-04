@@ -1,5 +1,4 @@
 import argparse
-import os
 
 from pathlib import Path
 from colorama import Fore, Style
@@ -49,7 +48,7 @@ def main():
     root_dir = args.root_dir
     prefix = args.prefix
 
-    if not os.path.exists(root_dir):
+    if not Path.exists(root_dir):
         print(f"Directory {root_dir} does not exist.")
         return None
 
