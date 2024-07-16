@@ -90,13 +90,13 @@ def delete_contact(name: str, phonebook: List[Dict[str, str]]) -> None:
     __return__:
         None
     """
-    # TODO: Add a check existance of the contact
-    # TODO: Add a confirmation prompt
     for contact in phonebook:
         if contact["name"] == name:
             phonebook.remove(contact)
+            print(f"Contact {name} deleted.")
             break
-    print(f"Contact {name} deleted.")
+        else:
+            print("Contact not found.")
 
 
 def search_contact(pattern: str, phonebook: List[Dict[str, str]]) -> None:
