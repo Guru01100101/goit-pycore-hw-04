@@ -90,6 +90,8 @@ def delete_contact(name: str, phonebook: List[Dict[str, str]]) -> None:
     __return__:
         None
     """
+    # TODO: Add a check existance of the contact
+    # TODO: Add a confirmation prompt
     for contact in phonebook:
         if contact["name"] == name:
             phonebook.remove(contact)
@@ -138,7 +140,8 @@ def show_phonebook(phonebook: List[Dict[str, str]], sorted_=True) -> None:
 def main(phonebook=None):
     print("Welcome to the assistant bot!")
     while True:
-        command = input("command: ").strip().lower().split()
+        command = input("command: ").strip().split()
+        command[0] = command[0].lower()
 
         if command[0] in ["close", "exit"]:
             print("Good bye!")
