@@ -1,40 +1,129 @@
-import argparse
 import json
+from pathlib import Path
+from typing import List, Dict
 
 from normalize_phone import normalize_phone
 
+PHONEBOOK_FILE = "phonebook.json"
 
-def load_phonebook() -> dict:
+
+def load_phonebook(filename=PHONEBOOK_FILE) -> List[Dict[str, str]]:
+    """Function to load the phonebook from the file.
+
+    __args__:
+        None
+    __return__:
+        phonebook: dict
+            The phonebook dictionary
+    """
+    path = Path(filename)
     try:
-        with open("phonebook.json", "r") as file:
+        with open(path, "r") as file:
             phonebook = json.load(file)
     except FileNotFoundError:
-        phonebook = {}
+        phonebook = []
     return phonebook
 
 
-def save_phonebook(phonebook: dict) -> None:
-    with open("phonebook.json", "w") as file:
+def save_phonebook(phonebook: List[Dict[str, str]], filename=PHONEBOOK_FILE) -> None:
+    """Function to save the phonebook to the file.
+
+    __args__:
+        phonebook: dict
+            The phonebook dictionary
+    __return__:
+        None
+    """
+    path = Path(filename)
+    with open(path, "w") as file:
         json.dump(phonebook, file, indent=4)
 
 
-def add_contact(name: str, phone: str) -> None:
-    ...
+def add_contact(name: str, phone: str, phonebook: List[Dict[str, str]]) -> None:
+    """Function to add a contact to the phonebook.
+
+    __args__:
+        name: str
+            The name of the contact
+        phone: str
+            The phone number of the contact
+        phonebook: dict
+            The phonebook dictionary
+    __return__:
+        None
+    """
+    phone = normalize_phone(phone)
+    contact = {"name": name, "phone": phone}
+    phonebook.append(contact)
+    print(f"Contact {name} added.")
 
 
-def change_contact(name: str, new_phone: str) -> None:
-    ...
+def change_contact(name: str, new_phone: str, phonebook: List[Dict[str, str]]) -> None:
+    """Function to change the phone number of a contact.
+
+    __args__:
+        name: str
+            The name of the contact
+        new_phone: str
+            The new phone number of the contact
+        phonebook: dict
+            The phonebook dictionary
+    __return__:
+        None
+    """
+    new_phone = normalize_phone(new_phone)
+    for contact in phonebook:
+        if contact["name"] == name:
+            contact["phone"] = new_phone
+            break
+    print(f"Contact {name} updated.\nNew phone: {new_phone}")
 
 
-def delete_contact(name: str) -> None:
-    ...
+def delete_contact(name: str, phonebook: List[Dict[str, str]]) -> None:
+    """Function to delete a contact from the phonebook.
+
+    __args__:
+        name: str
+            The name of the contact
+        phonebook: dict
+            The phonebook dictionary
+    __return__:
+        None
+    """
+    for contact in phonebook:
+        if contact["name"] == name:
+            phonebook.remove(contact)
+            break
+    print(f"Contact {name} deleted.")
 
 
-def search_contact(pattern: str) -> None:
-    ...
+def search_contact(pattern: str, phonebook: List[Dict[str, str]]) -> None:
+    """Function to search for a contact in the phonebook.
+
+    __args__:
+        pattern: str
+            The search pattern
+        phonebook: dict
+            The phonebook dictionary
+    __return__:
+        None
+    """
+    for contact in phonebook:
+        if pattern.lower() in contact["name"].lower():
+            print(f"{contact['name']}: {contact['phone']}")
+        else:
+            print("Contact not found.")
 
 
-def show_phonebook():
+def show_phonebook(phonebook: List[Dict[str, str]]) -> None:
+    """Function to pint the phonebook to console.
+
+    __args__:
+        phonebook: dict
+            The phonebook dictionary
+    __return__:
+        None
+    """
     ...
 
 
@@ -53,30 +142,30 @@ def main(phonebook=None):
                 print("Invalid command.")
                 print("Usage: add <name> <phone>")
                 continue
-            add_contact(command[1], command[2])
+            add_contact(command[1], command[2], phonebook)
         elif command[0] == "change":
             if len(command) != 3:
                 print("Invalid command.")
                 print("Usage: change <name> <phone>")
                 continue
-            change_contact(command[1], command[2])
+            change_contact(command[1], command[2], phonebook)
         elif command[0] == "delete":
             if len(command) != 2:
                 print("Invalid command.")
                 print("Usage: delete <name>")
                 continue
-            delete_contact(command[1])
+            delete_contact(command[1], phonebook)
         elif command[0] == "search":
             if len(command) != 2:
                 print("Invalid command.")
                 print("Usage: search <pattern>")
                 continue
-            search_contact(command[1])
+            search_contact(command[1], phonebook)
         elif command[0] == "show":
             if len(command) == 1 or (len(command) == 2 and command[1] == "all"):
-                show_phonebook()
+                show_phonebook(phonebook)
             elif len(command) == 2:
-                search_contact(command[1])
+                search_contact(command[1], phonebook)
             else:
                 print("Invalid command.")
                 print("Usage: show [pattern]")
