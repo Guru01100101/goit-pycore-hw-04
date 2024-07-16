@@ -139,6 +139,10 @@ def show_phonebook(phonebook: List[Dict[str, str]], sorted_=True) -> None:
 
 def main(phonebook=None):
     print("Welcome to the assistant bot!")
+
+    if phonebook is None:  # Load the phonebook if not provided
+        phonebook = []
+
     while True:
         command = input("command: ").strip().split()
         command[0] = command[0].lower()
@@ -172,7 +176,7 @@ def main(phonebook=None):
                 print("Usage: search <pattern>")
                 continue
             search_contact(command[1], phonebook)
-        elif command[0] == "show":
+        elif command[0] in ["show", "all"]:
             if len(command) == 1 or (len(command) == 2 and command[1] == "all"):
                 show_phonebook(phonebook)
             elif len(command) == 2:
