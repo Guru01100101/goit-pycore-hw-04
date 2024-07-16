@@ -120,7 +120,7 @@ def search_contact(pattern: str, phonebook: List[Dict[str, str]]) -> None:
         print("Contact not found.")
 
 
-def show_phonebook(phonebook: List[Dict[str, str]]) -> None:
+def show_phonebook(phonebook: List[Dict[str, str]], sorted_=True) -> None:
     """Function to pint the phonebook to console.
 
     __args__:
@@ -129,7 +129,10 @@ def show_phonebook(phonebook: List[Dict[str, str]]) -> None:
     __return__:
         None
     """
-    ...
+    if sorted_:  # Sort the phonebook by name
+        phonebook = sorted(phonebook, key=lambda contact: contact["name"])
+    for contact in phonebook:
+        print(f"{contact['name']}: {contact['phone']}")
 
 
 def main(phonebook=None):
