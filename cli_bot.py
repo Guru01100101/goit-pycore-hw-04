@@ -4,6 +4,20 @@ import json
 from normalize_phone import normalize_phone
 
 
+def load_phonebook() -> dict:
+    try:
+        with open("phonebook.json", "r") as file:
+            phonebook = json.load(file)
+    except FileNotFoundError:
+        phonebook = {}
+    return phonebook
+
+
+def save_phonebook(phonebook: dict) -> None:
+    with open("phonebook.json", "w") as file:
+        json.dump(phonebook, file, indent=4)
+
+
 def add_contact(name: str, phone: str) -> None:
     ...
 
@@ -24,7 +38,7 @@ def show_phonebook():
     ...
 
 
-def main():
+def main(phonebook=None):
     print("Welcome to the assistant bot!")
     while True:
         command = input("command: ").strip().lower().split()
@@ -70,35 +84,8 @@ def main():
             print("Invalid command.")
             print("Available commands: hello, add, change, delete, search, show, close, exit")
 
-# TODO: Decide if you want to use the command_line_handler function or the main function. You can't use both.
-# def command_line_handler():
-#     parser = argparse.ArgumentParser(description="Phonebook CLI")
-#     parser.add_argument("command",
-#                         type=str,
-#                         help="The command to execute.")
-#     parser.add_argument("name",
-#                         type=str,
-#                         nargs="?",
-#                         help="The name of the contact.")
-#     parser.add_argument("phone",
-#                         type=str,
-#                         nargs="?",
-#                         help="The phone number of the contact.")
-#     args = parser.parse_args()
-#     command = args.command
-#     name = args.name
-#     phone = args.phone
-#
-#     if command == "add":
-#         add_contact(name, phone)
-#     elif command == "change":
-#         change_contact(name, phone)
-#     elif command == "delete":
-#         delete_contact(name)
-#     elif command == "search":
-#         search_contact(name=name, phone=phone)
-#     elif command == "show":
-#         show_phonebook()
-#     else:
-#         print("Invalid command.")
-#         sys.exit(1)
+
+if __name__ == '__main__':
+    phonebook = load_phonebook()
+    main(phonebook=phonebook)
+    save_phonebook(phonebook)
