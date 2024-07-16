@@ -108,11 +108,16 @@ def search_contact(pattern: str, phonebook: List[Dict[str, str]]) -> None:
     __return__:
         None
     """
+
+    found = False
+
     for contact in phonebook:
         if pattern.lower() in contact["name"].lower():
             print(f"{contact['name']}: {contact['phone']}")
-        else:
-            print("Contact not found.")
+            found = True
+
+    if not found:
+        print("Contact not found.")
 
 
 def show_phonebook(phonebook: List[Dict[str, str]]) -> None:
